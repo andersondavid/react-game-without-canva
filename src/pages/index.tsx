@@ -2,7 +2,6 @@
 import Head from "next/head";
 //import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import Enemy from "./components/enemy";
 import { useBulletContext } from "@/api/bulletContext";
 import SpawnBullets from "./components/spawnbullets";import SpawnEnemys from "./components/spawnEnemys";
  './components/spawnBullets'
@@ -26,7 +25,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} onClick={handleClick}>
-        <h2>{bulletsList.length}</h2>
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <SpawnEnemys />

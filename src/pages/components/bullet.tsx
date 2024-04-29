@@ -16,7 +16,7 @@ export default function Bullet({ bulletId, positionX }: Props) {
   const moverDiv = () => {
     if (bulletRef.current) {
       const finalX = window.innerHeight - bulletRef.current.offsetHeight;
-      const speed = 2;
+      const speed = 10;
 
       const bullet = bulletsList.filter(bullet => bullet.bulletId == bulletId)
       
