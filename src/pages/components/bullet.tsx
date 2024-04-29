@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Bullet({ bulletId, positionX }: Props) {
-  const { bulletsList, removeBullet, setbulletsList } = useBulletContext();
+  const { bulletsList, updateBullet } = useBulletContext();
   const bulletRef = useRef<HTMLDivElement>(null);
 
   const [posLocalY, setPosLocalY] = useState(0);
@@ -18,27 +18,18 @@ export default function Bullet({ bulletId, positionX }: Props) {
       const finalX = window.innerHeight - bulletRef.current.offsetHeight;
       const speed = 2;
 
-      if (posLocalY < finalX) {
+      const bullet = bulletsList.filter(bullet => bullet.bulletId == bulletId)
+      
+      if (posLocalY < finalX && !bullet[0].killEnemy) {
         requestAnimationFrame(() => {
           setPosLocalY((prevPostionY) => prevPostionY + speed);
           let bulletY = bulletRef.current?.getBoundingClientRect().y || 0;
-          updateContext(bulletId, bulletY);
+          updateBullet(bulletId, bulletY);
         });
       } else {
-        removeBullet(bulletId);
+        updateBullet(bulletId, null);
       }
     }
-  };
-
-  const updateContext = (bulletId: string, bulletY: number) => {
-    let newArrBullets = bulletsList.map((bullet) => {
-      if (bulletRef && bullet.bulletId === bulletId) {
-        bullet.positionY = bulletY;
-      }
-      return bullet;
-    });
-
-    setbulletsList(newArrBullets);
   };
 
   useEffect(() => {

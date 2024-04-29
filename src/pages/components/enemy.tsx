@@ -4,7 +4,7 @@ import { useBulletContext } from "@/api/bulletContext";
 
 export default function Enemy({ id }: any) {
   const enemyRef = useRef<HTMLDivElement>(null);
-  const { bulletsList, removeBullet,  } = useBulletContext();
+  const { bulletsList, updateBullet } = useBulletContext();
 
   useEffect(() => {
     if (enemyRef.current) {
@@ -16,18 +16,17 @@ export default function Enemy({ id }: any) {
           bullets.positionY > enemyPosition.top &&
           bullets.positionY < enemyPosition.bottom
         ) {
-          enemyRef.current?.remove()
-          removeBullet(bullets.bulletId)
+          enemyRef.current?.remove();
+          updateBullet(bullets.bulletId, 0, id);
         }
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bulletsList]);
 
   return (
     <div className={styles.enemyContainer}>
-      <div ref={enemyRef} className={styles.enemy}>
-      </div>
+      <div ref={enemyRef} className={styles.enemy}></div>
     </div>
   );
 }
