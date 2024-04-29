@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/Bullet.module.css";
-import { useBulletContext } from "@/api/context";
+import { useBulletContext } from "@/api/bulletContext";
 
 interface Props {
   bulletId: string;
@@ -8,25 +8,21 @@ interface Props {
 }
 
 export default function Bullet({ bulletId, positionX }: Props) {
-  const { bulletsList, setbulletsList, removeBullet } = useBulletContext();
+  const { bulletsList, removeBullet, setbulletsList } = useBulletContext();
   const bulletRef = useRef<HTMLDivElement>(null);
 
-  const thisBullet = bulletsList.filter(
-    (bullet) => bullet.bulletId == bulletId
-  );
-
-  const [positionY, setPositionY] = useState(thisBullet[0].positionY);
+  const [posLocalY, setPosLocalY] = useState(0);
 
   const moverDiv = () => {
-    const bullet = bulletRef.current;
-    if (bullet) {
-      const finalX = window.innerHeight - bullet.offsetHeight;
-      const speed = 5;
+    if (bulletRef.current) {
+      const finalX = window.innerHeight - bulletRef.current.offsetHeight;
+      const speed = 2;
 
-      if (positionY < finalX) {
+      if (posLocalY < finalX) {
         requestAnimationFrame(() => {
-          setPositionY((prevPostionY) => prevPostionY + speed);
-          updateContext();
+          setPosLocalY((prevPostionY) => prevPostionY + speed);
+          let bulletY = bulletRef.current?.getBoundingClientRect().y || 0;
+          updateContext(bulletId, bulletY);
         });
       } else {
         removeBullet(bulletId);
@@ -34,10 +30,10 @@ export default function Bullet({ bulletId, positionX }: Props) {
     }
   };
 
-  const updateContext = () => {
+  const updateContext = (bulletId: string, bulletY: number) => {
     let newArrBullets = bulletsList.map((bullet) => {
-      if (bullet.bulletId === bulletId) {
-        bullet.positionY = positionY;
+      if (bulletRef && bullet.bulletId === bulletId) {
+        bullet.positionY = bulletY;
       }
       return bullet;
     });
@@ -54,11 +50,13 @@ export default function Bullet({ bulletId, positionX }: Props) {
       ref={bulletRef}
       className={styles.bullet}
       style={{
-        bottom: positionY,
+        bottom: posLocalY,
         left: positionX,
       }}
     >
-      {bulletsList.length}
+      {bulletsList[0].positionY}
+      {"  "}
+      {bulletsList[0].positionX}
     </div>
   );
 }

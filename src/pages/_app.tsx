@@ -1,4 +1,4 @@
-import { BulletContextProvider } from "@/api/context";
+import { BulletContextProvider } from "@/api/bulletContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 

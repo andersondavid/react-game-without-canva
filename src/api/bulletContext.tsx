@@ -1,14 +1,15 @@
 import React, { ReactNode, createContext, useContext, useState } from "react";
 
 interface BulletContextType {
-  bulletsList: BulletPosition[];
-  setbulletsList: (bulletsList: BulletPosition[]) => void;
+  bulletsList: BulletInstance[];
+  setbulletsList: (bulletsList: BulletInstance[]) => void;
   removeBullet: (bulletId: string) => void;
 }
-export interface BulletPosition {
+export interface BulletInstance {
   positionX: number;
   positionY: number;
   bulletId: string;
+  remove?: Boolean;
 }
 
 const BulletContext = createContext<BulletContextType>({
@@ -22,13 +23,15 @@ interface Props {
 }
 
 export const BulletContextProvider: React.FC<Props> = ({ children }) => {
-  const [bulletsList, setbulletsList] = useState<BulletPosition[]>([]);
+  const [bulletsList, setbulletsList] = useState<BulletInstance[]>([]);
 
   const removeBullet = (bulletId: string) => {
-    let newArrBullets = bulletsList.filter(
-      (bullet) => bullet.bulletId !== bulletId
+
+    setbulletsList((prev) =>
+      prev.filter((bullet) => bullet.bulletId !== bulletId)
     );
-    setbulletsList(newArrBullets);
+
+    
   };
 
   return (

@@ -17,18 +17,18 @@
 .enemyZone {
   border: solid 1px red;
   display: grid;
-  grid-template-columns: repeat(10, 100px); /* Define 10 colunas com 100px de largura cada */
-  grid-template-rows: repeat(3, 100px); /* Define 3 linhas com 100px de altura cada */
+  grid-template-columns: repeat(
+    10,
+    100px
+  ); /* Define 10 colunas com 100px de largura cada */
+  grid-template-rows: repeat(
+    3,
+    100px
+  ); /* Define 3 linhas com 100px de altura cada */
   grid-gap: 10px;
   width: fit-content;
   height: fit-content;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-
-.enemyContainer {
-  width: 100px;
-  height: 100px;
-  background-color: #00f;
 }

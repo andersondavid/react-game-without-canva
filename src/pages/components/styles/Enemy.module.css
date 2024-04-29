@@ -1,0 +1,11 @@
+.enemyContainer {
+  width: 100px;
+  height: 100px;
+  border: solid blue 1px;
+}
+
+.enemy {
+  background: red;
+  height: 100px;
+  width: 100px;
+}

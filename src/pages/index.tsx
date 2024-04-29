@@ -2,7 +2,7 @@ import Head from "next/head";
 //import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Enemy from "./components/enemy";
-import { useBulletContext } from "@/api/context";
+import { useBulletContext } from "@/api/bulletContext";
 import { v4 as uuidv4 } from "uuid";
 import SpawnBullets from "./components/spawnbullets"; './components/spawnBullets'
 
@@ -18,6 +18,8 @@ export default function Home() {
       ...bulletsList,
       { bulletId: uuidv4(), positionX: posX, positionY: 0 },
     ]);
+    console.log("Home", bulletsList);
+
   };
 
   return (
@@ -29,6 +31,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} onClick={handleClick}>
+        <h2>{bulletsList.length}</h2>
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <div className={styles.enemyZone}>
