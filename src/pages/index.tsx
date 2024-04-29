@@ -3,23 +3,16 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import Enemy from "./components/enemy";
 import { useBulletContext } from "@/api/bulletContext";
-import { v4 as uuidv4 } from "uuid";
 import SpawnBullets from "./components/spawnbullets"; './components/spawnBullets'
 
 //const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { bulletsList, setbulletsList } = useBulletContext();
+  const { bulletsList, createBullet } = useBulletContext();
 
   const handleClick = (event: any) => {
     const posX = event.clientX;
-
-    setbulletsList([
-      ...bulletsList,
-      { bulletId: uuidv4(), positionX: posX, positionY: 0 },
-    ]);
-    console.log("Home", bulletsList);
-
+    createBullet(posX)
   };
 
   return (
