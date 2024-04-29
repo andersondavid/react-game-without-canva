@@ -4,12 +4,13 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { useBulletContext } from "@/api/bulletContext";
 import SpawnBullets from "./components/spawnbullets";import SpawnEnemys from "./components/spawnEnemys";
+import SpawnHero from "./components/spawnhero";
  './components/spawnBullets'
 
 //const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { bulletsList, createBullet } = useBulletContext();
+  const { createBullet } = useBulletContext();
 
   const handleClick = (event: any) => {
     const posX = event.clientX;
@@ -29,7 +30,9 @@ export default function Home() {
           <div className={styles.enemySpace}>
             <SpawnEnemys />
           </div>
-          <div className={styles.heroSpace}></div>
+          <div className={styles.heroSpace}>
+            <SpawnHero />
+          </div>
           <SpawnBullets />
         </div>
       </main>

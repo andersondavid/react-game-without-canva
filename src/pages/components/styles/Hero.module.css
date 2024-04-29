@@ -1,0 +1,8 @@
+.hero {
+  height: 100px;
+  width: 100px;
+  background: #0099ff;
+  border-radius: 30px;
+  bottom: 0;
+  position: absolute;
+}

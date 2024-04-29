@@ -10,10 +10,11 @@
 }
 
 .enemySpace {
-  background-color: greenyellow;
   position: relative;
+  height: 50vh;
 }
 
 .heroSpace {
-  
+  position: relative;
+  height: 50vh;
 }
