@@ -1,13 +1,25 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
+//import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Enemy from "./components/enemy";
-import { useState } from "react";
-import Bullet from "./components/bullet";
+import { useBulletContext } from "@/api/context";
+import { v4 as uuidv4 } from "uuid";
+import SpawnBullets from "./components/spawnbullets"; './components/spawnBullets'
 
-const inter = Inter({ subsets: ["latin"] });
+//const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { bulletsList, setbulletsList } = useBulletContext();
+
+  const handleClick = (event: any) => {
+    const posX = event.clientX;
+
+    setbulletsList([
+      ...bulletsList,
+      { bulletId: uuidv4(), positionX: posX, positionY: 0 },
+    ]);
+  };
+
   return (
     <>
       <Head>
@@ -16,7 +28,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={styles.main} onClick={handleClick}>
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <div className={styles.enemyZone}>
@@ -53,9 +65,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.heroSpace}></div>
-          <div className={styles.spawnBullet}>
-            <Bullet />
-          </div>
+          <SpawnBullets />
         </div>
       </main>
     </>
