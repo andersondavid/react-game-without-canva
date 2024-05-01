@@ -34,15 +34,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} onClick={() => shot()}>
-        {bulletsList.length}
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <SpawnEnemys />
           </div>
+          <SpawnBullets />
           <div className={styles.heroSpace}>
             <SpawnHero />
           </div>
-          <SpawnBullets />
         </div>
       </main>
     </>

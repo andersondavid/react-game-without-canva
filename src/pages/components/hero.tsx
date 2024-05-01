@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/Hero.module.css";
 import { ControlContext } from "@/api/controlsContext";
 import { BulletContext } from "@/api/bulletContext";
+import Image from "next/image";
 
 export default function Hero() {
   const [position, setPosition] = useState({ x: 1200, y: 0 });
@@ -55,7 +56,7 @@ export default function Hero() {
 
   return (
     <div className={styles.hero} style={{ left: position.x }}>
-      {gameInput.ATTACK + ""}
+      <Image src="/hero.png" width={100} height={100} alt="" />
     </div>
   );
 }

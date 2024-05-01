@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/Bullet.module.css";
 import { BulletContext } from "@/api/bulletContext";
+import Image from "next/image";
 
 interface Props {
   bulletId: string;
@@ -16,7 +17,7 @@ export default function Bullet({ bulletId, positionX }: Props) {
   const moverDiv = () => {
     if (bulletRef.current) {
       const finalX = window.innerHeight - bulletRef.current.offsetHeight;
-      const speed = 10;
+      const speed = 20;
 
       const bullet = bulletsList.filter(
         (bullet) => bullet.bulletId == bulletId
@@ -44,8 +45,12 @@ export default function Bullet({ bulletId, positionX }: Props) {
       className={styles.bullet}
       style={{
         bottom: posLocalY,
-        left: positionX,
+        left: positionX - 20,
       }}
-    ></div>
+    >
+      {posLocalY > 50 && (
+        <Image src="/bullet.png" alt="" height={40} width={40} />
+      )}
+    </div>
   );
 }

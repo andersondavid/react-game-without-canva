@@ -3,10 +3,13 @@ import Enemy from "./enemy";
 import styles from "./styles/SpawnEnemys.module.css";
 
 export default function SpawnEnemys() {
+
+  const speed = 5
+
   const enemyZone = useRef<HTMLDivElement>(null);
   const enemySafeArea = useRef<HTMLDivElement>(null);
   const [enemyPosX, setEnemyPosX] = useState<number>(0);
-  const [enemySpeed, setEnemySpeed] = useState<number>(10);
+  const [enemySpeed, setEnemySpeed] = useState<number>(speed);
 
   const moveEnemy = () => {
     const enemyZoneWitdh =
@@ -18,9 +21,9 @@ export default function SpawnEnemys() {
       const isEnemyTouchedLeft = enemyPosX <= 0;
 
       if (isEnemyTouchedRight) {
-        setEnemySpeed(-10);
+        setEnemySpeed(-speed);
       } else if (isEnemyTouchedLeft) {
-        setEnemySpeed(10);
+        setEnemySpeed(speed);
       }
 
       if (enemySafeArea.current) {

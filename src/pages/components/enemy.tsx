@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./styles/Enemy.module.css";
 import { BulletContext } from "@/api/bulletContext";
+import Image from "next/image";
 
 export default function Enemy({ id }: any) {
   const enemyRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,9 @@ export default function Enemy({ id }: any) {
 
   return (
     <div className={styles.enemyContainer}>
-      <div ref={enemyRef} className={styles.enemy}></div>
+      <div ref={enemyRef} className={styles.enemy}>
+        <Image src="/alien.png" width={100} height={100} alt="" />
+      </div>
     </div>
   );
 }

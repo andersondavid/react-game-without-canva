@@ -18,7 +18,9 @@ body {
 
 body {
   color: #fff;
-  background: #112
+  background: #112;
+  background-image: url('/bg.gif');
+  background-size: 20%;
 }
 
 a {

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import Bullet from "./bullet";
-import styles from "./styles/Bullet.module.css";
+import styles from "./styles/SpawnBullet.module.css";
 import { BulletContext } from "@/api/bulletContext";
 
 
