@@ -9,7 +9,8 @@ export default function SpawnEnemys() {
   const [enemySpeed, setEnemySpeed] = useState<number>(10);
 
   const moveEnemy = () => {
-    const enemyZoneWitdh = enemyZone.current?.getBoundingClientRect().width || 0;
+    const enemyZoneWitdh =
+      enemyZone.current?.getBoundingClientRect().width || 0;
     const enemyWidth = enemySafeArea.current?.offsetWidth || 0;
 
     requestAnimationFrame(() => {
@@ -18,10 +19,8 @@ export default function SpawnEnemys() {
 
       if (isEnemyTouchedRight) {
         setEnemySpeed(-10);
-        console.log("encostou na direita");
       } else if (isEnemyTouchedLeft) {
         setEnemySpeed(10);
-        console.log("encostou na esquerda");
       }
 
       if (enemySafeArea.current) {
@@ -34,7 +33,7 @@ export default function SpawnEnemys() {
   useEffect(() => {
     moveEnemy();
   });
-  
+
   return (
     <div className={styles.enemyZone} ref={enemyZone}>
       <div className={styles.enemySafeArea} ref={enemySafeArea}>

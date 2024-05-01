@@ -1,21 +1,36 @@
-"use client"
+"use client";
 import Head from "next/head";
 //import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useBulletContext } from "@/api/bulletContext";
-import SpawnBullets from "./components/spawnbullets";import SpawnEnemys from "./components/spawnEnemys";
+import SpawnBullets from "./components/spawnbullets";
+import SpawnEnemys from "./components/spawnEnemys";
 import SpawnHero from "./components/spawnhero";
- './components/spawnBullets'
+import { useEffect } from "react";
+import useKeyboardInput from "@/api/keyboardInput";
+import { useControlContext } from "@/api/controlsContext";
+("./components/spawnBullets");
 
 //const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { createBullet } = useBulletContext();
+  // const { createBullet } = useBulletContext();
 
-  const handleClick = (event: any) => {
-    const posX = event.clientX;
-    createBullet(posX)
-  };
+  // const handleClick = (event: any) => {
+  //   const posX = event.clientX;
+  //   createBullet(posX);
+  // };
+
+  /* const [buttonsPress, setButtonsPress] = useState({
+    ATTACK: false,
+    DOWN: false,
+    LEFT: false,
+    RIGHT: false,
+    UP: false,
+  }); */
+
+  const controlContext = useControlContext();
+  const keyPressed = useKeyboardInput();
+  console.log(keyPressed);
 
   return (
     <>
@@ -25,7 +40,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main} onClick={handleClick}>
+      {JSON.stringify(controlContext.gameInput)}
+      <main className={styles.main}>
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <SpawnEnemys />
