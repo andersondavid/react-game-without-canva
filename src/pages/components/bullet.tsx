@@ -46,10 +46,6 @@ export default function Bullet({ bulletId, positionX }: Props) {
         bottom: posLocalY,
         left: positionX,
       }}
-    >
-      {bulletsList[0].positionY}
-      {"  "}
-      {bulletsList[0].positionX}
-    </div>
+    ></div>
   );
 }

@@ -4,7 +4,8 @@ import { ControlContext } from "@/api/controlsContext";
 import { BulletContext } from "@/api/bulletContext";
 
 export default function Hero() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 1200, y: 0 });
+  const [justShot, setJustShot] = useState<boolean>(false);
   const requestRef = useRef<number>(0);
   const { createBullet } = BulletContext();
   const { gameInput } = ControlContext();
@@ -24,10 +25,6 @@ export default function Hero() {
         x: prevPosition.x + speed,
       }));
     }
-
-    if (gameInput.ATTACK) {
-      createBullet(position.x, 50);
-    }
   };
 
   const animate = () => {
@@ -40,5 +37,25 @@ export default function Hero() {
     return () => cancelAnimationFrame(requestRef.current);
   });
 
-  return <div className={styles.hero} style={{ left: position.x }}></div>;
+  useEffect(() => {
+    const shot = () => {
+      if (!justShot) {
+        createBullet(position.x + 50, position.y);
+        setJustShot(true);
+      }
+    };
+
+    if (gameInput.ATTACK) {
+      shot();
+      setJustShot(true);
+    } else {
+      setJustShot(false);
+    }
+  }, [gameInput.ATTACK, justShot, createBullet, position]);
+
+  return (
+    <div className={styles.hero} style={{ left: position.x }}>
+      {gameInput.ATTACK + ""}
+    </div>
+  );
 }

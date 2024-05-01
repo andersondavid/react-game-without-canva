@@ -35,6 +35,7 @@ export const BulletContextProvider: React.FC<Props> = ({ children }) => {
     bulletY: number | null,
     killEnemy?: number | null
   ) => {
+    
     if (bulletY !== null && killEnemy == null) {
       let newArrBullets = bulletsList.map((bullet) => {
         if (bullet.bulletId === bulletId) {
@@ -44,13 +45,15 @@ export const BulletContextProvider: React.FC<Props> = ({ children }) => {
       });
       setbulletsList(newArrBullets);
     } else if (killEnemy != null) {
-      let newArrBullets = bulletsList.map((bullet) => {
+      bulletsList.map((bullet) => {
         if (bullet.bulletId === bulletId) {
           bullet.killEnemy = killEnemy;
         }
         return bullet;
       });
-      setbulletsList(newArrBullets);
+      setbulletsList(() =>
+        bulletsList.filter((bullet) => bullet.bulletId !== bulletId)
+      );
     } else {
       setbulletsList((prev) =>
         prev.filter((bullet) => bullet.bulletId !== bulletId)
@@ -59,6 +62,8 @@ export const BulletContextProvider: React.FC<Props> = ({ children }) => {
   };
 
   const createBullet = (posX: number, posY: number) => {
+    console.log('espacço');
+    
     setbulletsList([
       ...bulletsList,
       { bulletId: uuidv4(), positionX: posX, positionY: posY },
@@ -66,7 +71,9 @@ export const BulletContextProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <MyBulletContext.Provider value={{ bulletsList, createBullet, updateBullet }}>
+    <MyBulletContext.Provider
+      value={{ bulletsList, createBullet, updateBullet }}
+    >
       {children}
     </MyBulletContext.Provider>
   );

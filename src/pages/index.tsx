@@ -8,6 +8,7 @@ import SpawnHero from "./components/spawnhero";
 import { useEffect } from "react";
 import useKeyboardInput from "@/api/keyboardInput";
 import { ControlContext } from "@/api/controlsContext";
+import { BulletContext } from "@/api/bulletContext";
 ("./components/spawnBullets");
 
 //const inter = Inter({ subsets: ["latin"] });
@@ -15,11 +16,15 @@ import { ControlContext } from "@/api/controlsContext";
 export default function Home() {
   const { handleInput } = ControlContext();
   const keyPressed = useKeyboardInput();
+  const { createBullet, bulletsList } = BulletContext();
 
   useEffect(() => {
-    handleInput(keyPressed)
-  })
+    handleInput(keyPressed);
+  });
 
+  const shot = () => {
+    createBullet(1000, 0);
+  };
   return (
     <>
       <Head>
@@ -28,7 +33,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={styles.main} onClick={() => shot()}>
+        {bulletsList.length}
         <div className={styles.space}>
           <div className={styles.enemySpace}>
             <SpawnEnemys />
