@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 interface BulletContextType {
   bulletsList: BulletInstance[];
-  createBullet: (posX: number) => void;
+  createBullet: (posX: number, posY: number) => void;
   updateBullet: (
     bulletId: string,
     bulletY: number | null,
@@ -17,7 +17,7 @@ export interface BulletInstance {
   killEnemy?: number;
 }
 
-const BulletContext = createContext<BulletContextType>({
+const MyBulletContext = createContext<BulletContextType>({
   bulletsList: [],
   createBullet: () => {},
   updateBullet: () => {},
@@ -58,18 +58,18 @@ export const BulletContextProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  const createBullet = (posX: number) => {
+  const createBullet = (posX: number, posY: number) => {
     setbulletsList([
       ...bulletsList,
-      { bulletId: uuidv4(), positionX: posX, positionY: 0 },
+      { bulletId: uuidv4(), positionX: posX, positionY: posY },
     ]);
   };
 
   return (
-    <BulletContext.Provider value={{ bulletsList, createBullet, updateBullet }}>
+    <MyBulletContext.Provider value={{ bulletsList, createBullet, updateBullet }}>
       {children}
-    </BulletContext.Provider>
+    </MyBulletContext.Provider>
   );
 };
 
-export const useBulletContext = () => useContext(BulletContext);
+export const BulletContext = () => useContext(MyBulletContext);

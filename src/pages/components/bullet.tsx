@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/Bullet.module.css";
-import { useBulletContext } from "@/api/bulletContext";
+import { BulletContext } from "@/api/bulletContext";
 
 interface Props {
   bulletId: string;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Bullet({ bulletId, positionX }: Props) {
-  const { bulletsList, updateBullet } = useBulletContext();
+  const { bulletsList, updateBullet } = BulletContext();
   const bulletRef = useRef<HTMLDivElement>(null);
 
   const [posLocalY, setPosLocalY] = useState(0);
@@ -18,8 +18,10 @@ export default function Bullet({ bulletId, positionX }: Props) {
       const finalX = window.innerHeight - bulletRef.current.offsetHeight;
       const speed = 10;
 
-      const bullet = bulletsList.filter(bullet => bullet.bulletId == bulletId)
-      
+      const bullet = bulletsList.filter(
+        (bullet) => bullet.bulletId == bulletId
+      );
+
       if (posLocalY < finalX && !bullet[0].killEnemy) {
         requestAnimationFrame(() => {
           setPosLocalY((prevPostionY) => prevPostionY + speed);

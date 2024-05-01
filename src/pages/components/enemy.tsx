@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./styles/Enemy.module.css";
-import { useBulletContext } from "@/api/bulletContext";
+import { BulletContext } from "@/api/bulletContext";
 
 export default function Enemy({ id }: any) {
   const enemyRef = useRef<HTMLDivElement>(null);
-  const { bulletsList, updateBullet } = useBulletContext();
+  const { bulletsList, updateBullet } = BulletContext();
 
   useEffect(() => {
     if (enemyRef.current) {
