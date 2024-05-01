@@ -1,9 +1,4 @@
-import React, {
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 
 export interface Buttons {
   UP: Boolean;
@@ -22,38 +17,31 @@ export interface ControlsContextType {
   handleInput: (button: Buttons) => void;
 }
 
-const inititalInput = {
+const inititalInput: Buttons = {
   ATTACK: false,
   DOWN: false,
   LEFT: false,
   RIGHT: false,
-  UP: true,
+  UP: false,
 };
 
-const PressButton = createContext<ControlsContextType>({
+const MyControlContext = createContext<ControlsContextType>({
   gameInput: inititalInput,
   handleInput: () => {},
 });
-
 
 export const ControlsContextProvider: React.FC<Props> = ({ children }) => {
   const [gameInput, setGameInput] = useState<Buttons>(inititalInput);
 
   const handleInput = (buttons: Buttons) => {
-    const str1 = JSON.stringify(gameInput);
-    const str2 = JSON.stringify(buttons);
-    if(str1 == str2){
-      console.log('são diferentes');
-    } else {
-      console.log('são iquais');
-    }
-  }
+    requestAnimationFrame(() => setGameInput(buttons));
+  };
 
   return (
-    <PressButton.Provider value={{ handleInput, gameInput }}>
+    <MyControlContext.Provider value={{ handleInput, gameInput }}>
       {children}
-    </PressButton.Provider>
+    </MyControlContext.Provider>
   );
 };
 
-export const useControlContext = () => useContext(PressButton);
+export const ControlContext = () => useContext(MyControlContext);

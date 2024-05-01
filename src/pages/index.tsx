@@ -7,30 +7,18 @@ import SpawnEnemys from "./components/spawnEnemys";
 import SpawnHero from "./components/spawnhero";
 import { useEffect } from "react";
 import useKeyboardInput from "@/api/keyboardInput";
-import { useControlContext } from "@/api/controlsContext";
+import { ControlContext } from "@/api/controlsContext";
 ("./components/spawnBullets");
 
 //const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  // const { createBullet } = useBulletContext();
-
-  // const handleClick = (event: any) => {
-  //   const posX = event.clientX;
-  //   createBullet(posX);
-  // };
-
-  /* const [buttonsPress, setButtonsPress] = useState({
-    ATTACK: false,
-    DOWN: false,
-    LEFT: false,
-    RIGHT: false,
-    UP: false,
-  }); */
-
-  const controlContext = useControlContext();
+  const { handleInput } = ControlContext();
   const keyPressed = useKeyboardInput();
-  console.log(keyPressed);
+
+  useEffect(() => {
+    handleInput(keyPressed)
+  })
 
   return (
     <>
@@ -40,7 +28,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {JSON.stringify(controlContext.gameInput)}
       <main className={styles.main}>
         <div className={styles.space}>
           <div className={styles.enemySpace}>
